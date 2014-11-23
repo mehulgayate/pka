@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.pka.entity.Movie;
+import com.pka.entity.User;
 
 @Transactional
 public class Repository {
@@ -26,4 +28,9 @@ public class Repository {
 	public List<Movie> listAllMovies(){
 		return getSession().createQuery("From "+Movie.class.getName()).list();
 	}	
+	
+	public User findUserByEmail(String email){
+		return (User) getSession().createQuery("FROM "+User.class.getName()+" where email=:email")
+				.uniqueResult();
+	}
 }
