@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT_NAME=evalua
+PROJECT_NAME=pka
 TOMCAT_HOME_DIR=/evalua/servers/$PROJECT_NAME/apache-tomcat-6.0.37
 TOMCAT_BIN=$TOMCAT_HOME_DIR/bin
 PROJECT_HOME=`pwd`
