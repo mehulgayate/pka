@@ -42,44 +42,19 @@ public class AdminController {
 		ModelAndView mv=new ModelAndView("admin/add-new-movie");
 		
 		return mv;
-	}
-	
-	/*@RequestMapping("/admin/edit-server")
-	public ModelAndView showeEditNew(HttpSession httpSession,@RequestParam Long id){
-		ModelAndView mv=new ModelAndView("admin/edit-server");
-		Server server=repository.findServerById(id);
-		mv.addObject("server", server);
-		
-		return mv;
-	}*/
-	
-	
+	}	
 	
 	@RequestMapping("/admin/add-movie")
 	public ModelAndView addNewServer(HttpSession httpSession, @ModelAttribute Movie movie){
 		ModelAndView mv=new ModelAndView("redirect:/admin");		
 		dataStoreManager.save(movie);		
-		
-		
-		
 		return mv;
-	}
+	}	
 	
-	/*@RequestMapping("/admin/update-server")
-	public ModelAndView editServer(HttpSession httpSession, @ModelAttribute Movie server){
-		ModelAndView mv=new ModelAndView("redirect:/admin");
-		Movie toUpdateServer=repository.findServerById(server.getId());
-		toUpdateServer.setCapacityThreshold(server.getCapacityThreshold());
-		toUpdateServer.setIp(server.getIp());
-		toUpdateServer.setMigrationActive(server.isMigrationActive());
-		toUpdateServer.setName(server.getName());
-		toUpdateServer.setPortNumber(server.getPortNumber());
-		toUpdateServer.setRequestCapacity(server.getRequestCapacity());
-		toUpdateServer.setStatus(server.getStatus());
-		dataStoreManager.save(toUpdateServer);		
-		
-		return mv;
-	}*/
+	@RequestMapping("/")
+	public ModelAndView showSerach(){
+		return new ModelAndView("search");
+	}
 	
 	
 }
