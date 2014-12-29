@@ -1,17 +1,11 @@
 package com.pka.web;
 
-import java.io.IOException;
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-
-import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.evalua.entity.support.DataStoreManager;
@@ -54,6 +48,11 @@ public class AdminController {
 	@RequestMapping("/")
 	public ModelAndView showSerach(){
 		return new ModelAndView("search");
+	}
+	
+	@RequestMapping("/admin/upload-movies")
+	public ModelAndView uploadBulk(){
+		return new ModelAndView("admin/upload-movies");
 	}
 	
 	

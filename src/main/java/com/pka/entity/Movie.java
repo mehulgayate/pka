@@ -1,15 +1,11 @@
 package com.pka.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import net.sf.json.JSONObject;
 
 import com.evalua.entity.support.EntityBase;
 
@@ -23,14 +19,14 @@ public class Movie extends EntityBase{
 	private String name;
 	private ServerStatus status;
 	private String discription;
-	private List<Keyword> keywords;
+	private String imageUrl;
+	private Long hitScore=0L;	
 	
-	@OneToMany	
-	public List<Keyword> getKeywords() {
-		return keywords;
+	public Long getHitScore() {
+		return hitScore;
 	}
-	public void setKeywords(List<Keyword> keywords) {
-		this.keywords = keywords;
+	public void setHitScore(Long hitScore) {
+		this.hitScore = hitScore;
 	}
 	public ServerStatus getStatus() {
 		return status;
@@ -50,6 +46,31 @@ public class Movie extends EntityBase{
 	}
 	public void setDiscription(String discription) {
 		this.discription = discription;
-	}	
-
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	public JSONObject toJSON(){
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("id", this.getId());
+		jsonObject.put("name", this.name);
+		jsonObject.put("discription", this.discription);
+		jsonObject.put("imageUrl", imageUrl);
+		
+		return jsonObject; 
+	}
+	
+	public static List<JSONObject> listToJSON(List<Movie> movies){
+		List<JSONObject> jsonObjects=new ArrayList<JSONObject>();		
+		for (Movie movie : movies) {
+			jsonObjects.add(movie.toJSON());
+		}
+		
+		return jsonObjects;
+	}
+	
 }

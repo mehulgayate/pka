@@ -61,30 +61,25 @@ ddaccordion.init({
     <div class="right_content">            
     
     <div >    
-    	<h2 style="display: inline-block; float: left; text-decoration: none;"><a href="/admin/">Movies</a></h2>
+    	<h2 style="display: inline-block; float: left;"><a href="/admin/">Movies</a></h2>
     	<h2 style="display: inline-block; margin-left: 20px;"><a href="/admin/graphs">Graph Analysis</a></h2>
-    	<h2 style="display: inline-block; margin-left: 20px;"><a href="/admin/upload-movies">Bulk Upload Movies</a></h2> 
+    	<h2 style="display: inline-block; margin-left: 20px; text-decoration: none;"><a href="/admin/upload-movies">Bulk Upload Movies</a></h2> 
     	<a style="display: inline-block; float: right;" href="/admin/add-new-movie"><strong>+ Add new movie</strong></a> 
-    </div>                
+    </div>              
     
     
-    <form action="/admin/add-movie">
-    <table id="rounded-corner" summary="Blocked Users">
+    <form action="/admin/upload-bulk" method="post" enctype="multipart/form-data">
+    <table id="rounded-corner" summary="Blocked Users" >
     
     <tbody>        
         <tr>   	 
-        	<td>Name</td>
-            <td><input type="text" name="name" value=""/></td>
+        	<td>Upload File</td>
+            <td><input type="file" name="csvFile"/></td>
             
-        </tr>
-        <tr>   	 
-        	<td>Description</td>
-            <td><input type="text" name="discription" value=""/></td>
-            
-        </tr>
+        </tr>     
           
         <tr>   	 
-        	<td><input type="submit" value="ADD"/></td>           
+        	<td><input type="submit" value="Upload"/></td>           
         </tr>         
          
     </tbody>

@@ -11,14 +11,10 @@ public class DataStoreManager {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public Session save(EntityBase entity){		
-		Session session=getSession();
+	public void save(EntityBase entity){		
+		Session session=sessionFactory.getCurrentSession();
 		session.saveOrUpdate(entity);
-		return session;
-	}
-
-	private Session getSession(){
-		return sessionFactory.openSession();
+		session.flush();
 	}
 
 }

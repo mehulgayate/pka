@@ -38,6 +38,11 @@ ddaccordion.init({
 	
 	$(document).ready(function() {
 		$('.ask').jConfirmAction();
+		
+		$("#searchButton").live("click", function(e){
+			
+		});
+		
 	});
 	
 </script>
@@ -74,9 +79,28 @@ ddaccordion.init({
     		<div style="margin-top: 50px; margin-left: 20px; font-weight: bold;">
     		Search result :
     		</div>
-    		<div style="width: 900px; min-height:300px; text-align: center;" id="resultContent">
+    		<div style="width: 900px; min-height:300px;" id="resultContent">
     			<div style="width: 500px; border: 1px solid; min-height:100px; margin: 0 auto; margin-top: 20px;">
-    			
+    				<div style="height: 35px; width: 500px; background: #0092FA !important;">
+    					<img src="/static/images/valid.png" style="width:20px; height: 20px; float: left; margin-left: 10px; margin-top: 10px;" />
+    					<div style="display: inline-block; margin-left: 15px; margin-top: 10px; font-weight: bold;">
+    						Garam Masala
+    					</div>
+    				</div>
+    				<div style="width: 500px; margin-top: 20px;">
+    					An engaged man (Akshay Kumar) runs into trouble when he tries to woo three beautiful air hostesses.
+    				</div>
+    			</div>
+    			<div style="width: 500px; border: 1px solid; min-height:100px; margin: 0 auto; margin-top: 20px;">
+    				<div style="height: 35px; width: 500px; background: #0092FA !important;">
+    					<img src="/static/images/valid.png" style="width:20px; height: 20px; float: left; margin-left: 10px; margin-top: 10px;" />
+    					<div style="display: inline-block; margin-left: 15px; margin-top: 10px; font-weight: bold;">
+    						Garam Masala
+    					</div>
+    				</div>
+    				<div style="width: 500px; margin-top: 20px;">
+    					An engaged man (Akshay Kumar) runs into trouble when he tries to woo three beautiful air hostesses.
+    				</div>
     			</div>
     		</div>
     	</div>

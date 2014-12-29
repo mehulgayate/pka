@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pka.entity.MetaData;
 import com.pka.entity.Movie;
 import com.pka.entity.User;
 
@@ -31,6 +32,30 @@ public class Repository {
 	
 	public User findUserByEmail(String email){
 		return (User) getSession().createQuery("FROM "+User.class.getName()+" where email=:email")
+				.uniqueResult();
+	}
+	
+	public List<Movie> listMoviesBySearchString(String searchString){
+		return getSession().createQuery("FROM "+Movie.class.getName()+" mv where lower(mv.name) LIKE lower(:searchString) OR lower(mv.discription) LIKE lower(:searchString)")
+				.setParameter("searchString", "%"+searchString+"%")
+				.list();
+	}
+	
+	public MetaData findMetaDataByKeyword(String keyword){
+		return (MetaData) getSession().createQuery("FROM "+MetaData.class.getName()+" md where lower(md.keyword)=lower(:keyword)")
+				.setParameter("keyword", keyword)
+				.uniqueResult();
+	}
+	
+	public Movie findMovieById(Long id){
+		return (Movie) getSession().createQuery("FROM "+Movie.class.getName()+" mv where mv.id=:id")
+				.setParameter("id", id)
+				.uniqueResult();
+	}
+	
+	public Movie findMovieByName(String name){
+		return (Movie) getSession().createQuery("FROM "+Movie.class.getName()+" mv where mv.name=:name")
+				.setParameter("name", name)
 				.uniqueResult();
 	}
 }

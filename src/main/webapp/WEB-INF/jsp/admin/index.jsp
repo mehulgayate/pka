@@ -56,24 +56,15 @@ ddaccordion.init({
     <div id="clock_a"></div>
     </div>
     
-    <div class="main_content">
-    
-                    <div class="menu">
-                    <ul>
-                    <li><a class="current" href="#">Admin Home</a></li>
-                    <li><a href="/blocked-users">Blocked Users<!--[if IE 7]><!--></a><!--<![endif]--></li>
-                    <li><a class="" href="/admin/activate-monitor">Demon Monitor</a></li>                   
-                    </ul>
-                    </div> 
-                    
-                    
-                    
-                    
+    <div class="main_content">                   
     <div class="center_content">  
     <div class="right_content">            
     
     <div >    
-    <h2 style="display: inline-block; float: left;">Movies</h2><h2 style="display: inline-block; margin-left: 20px;"><a href="/admin/graphs">Graph Analysis</a></h2> <a style="display: inline-block; float: right;" href="/admin/add-new-movie"><strong>+ Add new movie</strong></a> 
+    	<h2 style="display: inline-block; float: left; text-decoration: none;"><a href="/admin/">Movies</a></h2>
+    	<h2 style="display: inline-block; margin-left: 20px;"><a href="/admin/graphs">Graph Analysis</a></h2>
+    	<h2 style="display: inline-block; margin-left: 20px;"><a href="/admin/upload-movies">Bulk Upload Movies</a></h2> 
+    	<a style="display: inline-block; float: right;" href="/admin/add-new-movie"><strong>+ Add new movie</strong></a> 
     </div>                
                     
 <table id="rounded-corner" summary="Blocked Users">
