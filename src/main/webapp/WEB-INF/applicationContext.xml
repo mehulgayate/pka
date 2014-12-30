@@ -78,4 +78,13 @@
 		class="com.pka.entity.support.Repository">
 		<property name="sessionFactory" ref="sessionFactory" />		
 	</bean>
+	<bean id="searchOptimizerDemon"
+		class="com.pka.demon.SearchOptimizerDemon">		
+		<property name="repository" ref="repository" />
+		<property name="dataStoreManager" ref="dataStoreManager" />		
+	</bean>
+	<bean id="searchOptimizerScheduler"
+		class="com.pka.demon.SearchOptimizerScheduler" init-method="init">		
+		<property name="searchOptimizerDemon" ref="searchOptimizerDemon" />			
+	</bean>
 </beans>

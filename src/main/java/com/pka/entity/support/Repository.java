@@ -64,4 +64,15 @@ public class Repository {
 		return getSession().createQuery("FROM "+GraphData.class.getName())
 				.list();
 	}
+	
+	public List<Movie> listLatestAddedMovies(){
+		return getSession().createQuery("FROM "+Movie.class.getName()+" order by id")
+				.setMaxResults(10)
+				.list();
+	}
+	
+	public List<MetaData> listAllMetaData(){
+		return getSession().createQuery("FROM "+MetaData.class.getName())				
+				.list();
+	}
 }

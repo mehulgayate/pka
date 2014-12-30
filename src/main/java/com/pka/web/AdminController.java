@@ -51,7 +51,7 @@ public class AdminController {
 	
 	@RequestMapping("/")
 	public ModelAndView showSerach(){
-		return new ModelAndView("search");
+		return new ModelAndView("search").addObject("latests",repository.listLatestAddedMovies());
 	}
 	
 	@RequestMapping("/admin/upload-movies")

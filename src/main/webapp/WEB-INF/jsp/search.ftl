@@ -1,6 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page isELIgnored="false" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -136,10 +134,10 @@ ddaccordion.init({
     </div>
     
     <div class="main_content">    	  
-    		<div class="right_content" style="width: 600px; margin-left: 200px;">            
-    			<div style="width: 600px">
-    				<div style="width: 400px; display: inline-block;">
-    					<input type="text" name="searchKey" id="searchBox" style="width: 380px; height: 20px; font-weight: bold;"/>
+    		<div class="right_content" style="width: 800px; margin-left: 100px;">            
+    			<div style="width: 700px">
+    				<div style="width: 500px; display: inline-block;">
+    					<strong>Search Movie :</strong><input type="text" name="searchKey" id="searchBox" style="width: 380px; height: 20px; font-weight: bold; margin-left: 20px;"/>
     				</div>
     				<div style="width: 180px; display: inline-block;">
     					<input type="button" value="Search" id="searchButton"/>
@@ -155,28 +153,22 @@ ddaccordion.init({
     		Search result :
     		</div>
     		<div style="width: 900px; min-height:300px;" id="resultContent">
+    			<div style="width: 500px; min-height:20px; margin: 0 auto; margin-top: 20px;">
+    			<b>Latest Added Movies :</b>
+    			</div>
+    			<#list latests as latest> 			
     			<div style="width: 500px; border: 1px solid; min-height:100px; margin: 0 auto; margin-top: 20px;">
     				<div style="height: 35px; width: 500px; background: #0092FA !important;">
-    					<img src="/static/images/valid.png" style="width:20px; height: 20px; float: left; margin-left: 10px; margin-top: 10px;" />
+    					<img src="${latest.imageUrl?if_exists}" style="width:20px; height: 20px; float: left; margin-left: 10px; margin-top: 10px;" />
     					<div style="display: inline-block; margin-left: 15px; margin-top: 10px; font-weight: bold;">
-    						Garam Masala
+    						${latest.name?if_exists}
     					</div>
     				</div>
     				<div style="width: 500px; margin-top: 20px;">
-    					An engaged man (Akshay Kumar) runs into trouble when he tries to woo three beautiful air hostesses.
+    					${latest.discription?if_exists}
     				</div>
     			</div>
-    			<div style="width: 500px; border: 1px solid; min-height:100px; margin: 0 auto; margin-top: 20px;">
-    				<div style="height: 35px; width: 500px; background: #0092FA !important;">
-    					<img src="/static/images/valid.png" style="width:20px; height: 20px; float: left; margin-left: 10px; margin-top: 10px;" />
-    					<div style="display: inline-block; margin-left: 15px; margin-top: 10px; font-weight: bold;">
-    						Garam Masala
-    					</div>
-    				</div>
-    				<div style="width: 500px; margin-top: 20px;">
-    					An engaged man (Akshay Kumar) runs into trouble when he tries to woo three beautiful air hostesses.
-    				</div>
-    			</div>
+    			</#list>
     		</div>
     	</div>
     </div> <!--end of main content-->
