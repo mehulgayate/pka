@@ -57,15 +57,7 @@ ddaccordion.init({
     <div id="clock_a"></div>
     </div>
     
-    <div class="main_content">
-    
-                    <div class="menu">
-                    <ul>
-                    <li><a class="current" href="#">Admin Home</a></li>
-                    <li><a href="/blocked-users">Blocked Users<!--[if IE 7]><!--></a><!--<![endif]--></li>
-                    <li><a class="" href="/admin/activate-monitor">Demon Monitor</a></li>                   
-                    </ul>
-                    </div> 
+    <div class="main_content">                
                     
                     
                     
@@ -74,8 +66,11 @@ ddaccordion.init({
     <div class="right_content">            
     
     <div >    
-    <h2 style="display: inline-block; float: left;"><a href="/admin/">Servers</a></h2><h2 style="display: inline-block; margin-left: 20px;">Graph Analysis</h2> <a style="display: inline-block; float: right;" href="/admin/add-new-server"><strong>+ Add new server</strong></a> 
-    </div>                
+    	<h2 style="display: inline-block; float: left;"><a href="/admin/">Movies</a></h2>
+    	<h2 style="display: inline-block; margin-left: 20px;"><a href="/admin/graphs">Graph Analysis</a></h2>
+    	<h2 style="display: inline-block; margin-left: 20px; text-decoration: none;"><a href="/admin/upload-movies">Bulk Upload Movies</a></h2> 
+    	<a style="display: inline-block; float: right;" href="/admin/add-new-movie"><strong>+ Add new movie</strong></a> 
+    </div>               
                     
 
 
@@ -91,26 +86,13 @@ ddaccordion.init({
     <div style="text-align: center;">
     <br/>
     <br/>
-    <div><strong>Migrated Requests from servers</strong></div>
-    <div id="chart_div3" style="width: 900px; height: 500px;"></div>
-    
-    <br/>
-    <br/>
-    	Select Server : <select id="server">
-    						<#list servers as server>
-    							<option value="${server.id}">${server.name}</option>
-    						</#list>
     	
-    					</select>
-    					<button id="generateGraph">Generate Graph</button>
     </div>
     <br/>
-    <div><strong>Analysis while system is activated</strong></div>
+    <div><strong>NORMAL search vs PKA search</strong></div>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
     <br/>
-    <br/>
-    <div><strong>Analysis while system is NOT activated</strong></div>
-    <div id="chart_div2" style="width: 900px; height: 500px;"></div>
+    <br/>   
     </div> <!--end of main content-->
 	
     
@@ -141,89 +123,39 @@ ddaccordion.init({
     	var dataArray=[];
  		var headerArray=[];
  		headerArray.push("Time");
- 		headerArray.push("Load");
- 		headerArray.push("Capacity");
- 		dataArray.push(headerArray);	
-
- 		
- 		var dataArray2=[];
- 		var headerArray2=[];
- 		headerArray2.push("Time");
- 		headerArray2.push("Load");
- 		headerArray2.push("Capacity");
- 		dataArray2.push(headerArray2);
- 		
- 		var dataArray3=[];
- 		var headerArray3=[];
- 		headerArray3.push("Server");
- 		headerArray3.push("Migrated Requests");
- 		
- 		
- 		dataArray3.push(headerArray3);
-
+ 		headerArray.push("Normal Search");
+ 		headerArray.push("PKA Search");
+ 		dataArray.push(headerArray);		
  	  
  	  $.ajax({		
  			type : "GET",
- 			url : "/graph-data",			
- 			data : "id="+$("#server").val(),
+ 			url : "/admin/grapth-data", 			
  			dataType:"json",
  			success : function(data) {    				 
 				
- 				$.each(data.migrationActive,function(key,value){
+ 				$.each(data,function(key,value){
  					var innerArray=[];    	
  					innerArray.push(value.time);    					
- 					innerArray.push(parseInt(value.load));
- 					innerArray.push(parseInt(value.capacity));
+ 					innerArray.push(parseInt(value.normalTime));
+ 					innerArray.push(parseInt(value.pkaTime));
  					dataArray.push(innerArray);
  				});
  				
- 				$.each(data.migrationDeactive,function(key,value){
- 					var innerArray2=[];    	
- 					innerArray2.push(value.time);    					
- 					innerArray2.push(parseInt(value.load));
- 					innerArray2.push(parseInt(value.capacity));
- 					dataArray2.push(innerArray2);
- 				});
  				
- 				$.each(data.migration,function(key,value){
- 					var innerArray3=[];    	
- 					innerArray3.push(value.name);    					
- 					innerArray3.push(parseInt(value.requests));
- 		    			
- 					
- 					
- 					dataArray3.push(innerArray3);
- 				});
  				
  			//	alert(JSON.stringify(dataArray));
  				var data = google.visualization.arrayToDataTable(dataArray);
- 				var data2 = google.visualization.arrayToDataTable(dataArray2);
- 				var data3 = google.visualization.arrayToDataTable(dataArray3);
-
+ 				
  		        var options = {
  		    			'width':900,'height':500,'vAxis': {'title': 'Load'},hAxis: {
  		    		        slantedText:true,
  		    		        slantedTextAngle:90,// here you can even use 180
  		    		        'title': 'Time'
- 		    		    },title: "Server Load Analysis"
+ 		    		    },title: "NORMAL search vs PKA search"
  		    	};
- 		        
- 		        
- 		       var options = {
- 		              title: 'Migrated Requests',
- 		              vAxis: {title: 'Requests',  titleTextStyle: {color: 'green'}}
- 		            };
-
- 		            var chart3 = new google.visualization.ColumnChart(document.getElementById('chart_div3'));
- 		            chart3.draw(data3, options);
- 		        
- 		       
 
  		        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
- 		        chart.draw(data, options);
- 		        
- 		       var chart2 = new google.visualization.LineChart(document.getElementById('chart_div2'));
-		        chart2.draw(data2, options);
+ 		        chart.draw(data, options); 		      
  			},
  			error : function(e) {
  				alert('Error while Ajax');

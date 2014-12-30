@@ -39,9 +39,83 @@ ddaccordion.init({
 	$(document).ready(function() {
 		$('.ask').jConfirmAction();
 		
-		$("#searchButton").live("click", function(e){
+		$("#searchButton").live("click", function(e){			
+			var searchKey=$("#searchBox").val();
 			
+			if(searchKey != undefined && searchKey!=""){
+			$("#resultContent").empty();
+			$.ajax({		
+				type : "GET",
+				url : "/search",			
+				data : "searchKey=" + searchKey,
+				dataType : "JSON",
+				success : function(data) {
+					data=JSON.parse(data);					
+					if(data.length==0){
+						$("#resultContent").html('<div style="width: 500px; min-height:100px; margin: 0 auto; margin-top: 20px; font-weight:bold;">No result found</div>');
+					}else{
+						$.each(data, function(index,item){
+							$("#resultContent").append('<div style="width: 500px; border: 1px solid; min-height:100px; margin: 0 auto; margin-top: 20px;">'+
+									'<div style="height: 35px; width: 500px; background: #0092FA !important;">'+
+	    					'<img src="'+item.imageUrl+'" style="width:20px; height: 20px; float: left; margin-left: 10px; margin-top: 10px;" />'+
+	    					'<div style="display: inline-block; margin-left: 15px; margin-top: 10px; font-weight: bold;">'+
+	    						item.name+
+	    					'</div>'+
+	    				'</div>'+
+	    				'<div style="width: 500px; margin-top: 20px;margin-left: 15px;">'+
+	    					item.discription+
+	    				'</div>'+
+	    			'</div>');	
+						});						
+					}
+					
+				},
+				error : function(e) {
+					alert('Error on server');
+				}		
+			});	
+			}
 		});
+		
+		$("#analyseButton").live("click", function(e){			
+			var searchKey=$("#searchBox").val();
+			
+			if(searchKey != undefined && searchKey!=""){
+			$("#resultContent").empty();
+			$.ajax({		
+				type : "GET",
+				url : "/analyse",			
+				data : "searchKey=" + searchKey,
+				dataType : "JSON",
+				success : function(data) {
+					data=JSON.parse(data);					
+					if(data.length==0){
+						$("#resultContent").html('<div style="width: 500px; min-height:100px; margin: 0 auto; margin-top: 20px; font-weight:bold;">No result found</div>');
+					}else{
+						alert("This search is analysed and result can be seen in graph sceen in admin section.")
+						$.each(data, function(index,item){
+							$("#resultContent").append('<div style="width: 500px; border: 1px solid; min-height:100px; margin: 0 auto; margin-top: 20px;">'+
+									'<div style="height: 35px; width: 500px; background: #0092FA !important;">'+
+	    					'<img src="'+item.imageUrl+'" style="width:20px; height: 20px; float: left; margin-left: 10px; margin-top: 10px;" />'+
+	    					'<div style="display: inline-block; margin-left: 15px; margin-top: 10px; font-weight: bold;">'+
+	    						item.name+
+	    					'</div>'+
+	    				'</div>'+
+	    				'<div style="width: 500px; margin-top: 20px;margin-left: 15px;">'+
+	    					item.discription+
+	    				'</div>'+
+	    			'</div>');	
+						});						
+					}
+					
+				},
+				error : function(e) {
+					alert('Error on server');
+				}		
+			});	
+			}
+		});
+	
 		
 	});
 	
@@ -65,17 +139,18 @@ ddaccordion.init({
     		<div class="right_content" style="width: 600px; margin-left: 200px;">            
     			<div style="width: 600px">
     				<div style="width: 400px; display: inline-block;">
-    					<input type="text" name="searchKey" id="seachbox" style="width: 380px; height: 20px; font-weight: bold;"/>
+    					<input type="text" name="searchKey" id="searchBox" style="width: 380px; height: 20px; font-weight: bold;"/>
     				</div>
-    				<div style="width: 100px; display: inline-block;">
+    				<div style="width: 180px; display: inline-block;">
     					<input type="button" value="Search" id="searchButton"/>
+    					<input type="button" value="Analyse And Search" id="analyseButton"/>
     				</div>
     			</div>    		
      		</div><!-- end of right content-->
      		   
     
     	<div class="clear"></div>
-    	<div style="border: 1px solid; width: 900px;" id="serachResultSection">
+    	<div style="width: 900px;" id="serachResultSection">
     		<div style="margin-top: 50px; margin-left: 20px; font-weight: bold;">
     		Search result :
     		</div>

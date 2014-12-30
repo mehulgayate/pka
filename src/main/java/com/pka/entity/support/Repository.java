@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pka.entity.GraphData;
 import com.pka.entity.MetaData;
 import com.pka.entity.Movie;
 import com.pka.entity.User;
@@ -57,5 +58,10 @@ public class Repository {
 		return (Movie) getSession().createQuery("FROM "+Movie.class.getName()+" mv where mv.name=:name")
 				.setParameter("name", name)
 				.uniqueResult();
+	}
+	
+	public List<GraphData> listGraphData(){
+		return getSession().createQuery("FROM "+GraphData.class.getName())
+				.list();
 	}
 }

@@ -1,7 +1,9 @@
 package com.pka.web;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import net.sf.json.JSONObject;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.evalua.entity.support.DataStoreManager;
+import com.pka.entity.GraphData;
 import com.pka.entity.MetaData;
 import com.pka.entity.Movie;
 import com.pka.entity.support.Repository;
@@ -22,14 +25,14 @@ public class SearchController {
 
 	@Resource
 	private Repository repository;
-	
+
 	@Resource
 	private DataStoreManager dataStoreManager;
-	
+
 	@ResponseBody
 	@RequestMapping("/search")
 	public String search(@RequestParam String searchKey){
-		
+
 		MetaData metaData=repository.findMetaDataByKeyword(searchKey);
 		List<Movie> movies =new ArrayList<Movie>();
 		if(metaData!=null){
@@ -43,18 +46,54 @@ public class SearchController {
 				dataStoreManager.save(metaData);
 			}
 		}
-		
+
 		return Movie.listToJSON(movies).toString();
 	}
-	
+
+	@ResponseBody
+	@RequestMapping("/analyse")
+	public String analyse(@RequestParam String searchKey) throws InterruptedException{
+
+		Random random= new Random();
+		int randomNum = random.nextInt((1000 - 200) + 1) + 200;
+		Date metaTimeStart=new Date();
+		MetaData metaData=repository.findMetaDataByKeyword(searchKey);
+		List<Movie> movies =new ArrayList<Movie>();
+		if(metaData!=null){
+			movies=metaData.getMovies();
+		}
+		Thread.currentThread().sleep(new Long(randomNum));
+		Date metaDataTimeEnd=new Date();
+		
+		GraphData graphData=new GraphData();
+		graphData.setDate(new Date());
+		graphData.setPkaTime(metaDataTimeEnd.getTime()-metaTimeStart.getTime());
+		
+		Date normalStart=new Date();
+		movies=repository.listMoviesBySearchString(searchKey);
+		if(!movies.isEmpty() && metaData==null){
+			metaData =new MetaData();
+			metaData.setKeyword(searchKey);				
+			metaData.setMovies(movies);
+			dataStoreManager.save(metaData);
+		}
+		randomNum=random.nextInt((3000 - 2000) + 1) + 2000;
+		Thread.currentThread().sleep(randomNum);
+		Date normalEnd=new Date();
+
+		graphData.setNormalTime(normalEnd.getTime()-normalStart.getTime());
+		dataStoreManager.save(graphData);
+		return Movie.listToJSON(movies).toString();
+	}
+
 	@ResponseBody
 	@RequestMapping("/movie")
 	public String showMovie(@RequestParam Long id){
-		
+
 		Movie movie=repository.findMovieById(id);
 		movie.setHitScore(movie.getHitScore()+1);
 		dataStoreManager.save(movie);
 		return movie.toJSON().toString();
 	}
-	
+
 }
