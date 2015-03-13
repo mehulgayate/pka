@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,6 +49,25 @@ public class AdminController {
 		dataStoreManager.save(movie);		
 		return mv;
 	}	
+	
+	@RequestMapping("/admin/update-movie")
+	public ModelAndView edit(HttpSession httpSession, @ModelAttribute Movie movie){
+		ModelAndView mv=new ModelAndView("admin/edit-movie");
+		Movie existMovie = repository.findMovieById(movie.getId());
+		existMovie.setDiscription(movie.getDiscription());
+		existMovie.setImageUrl(movie.getImageUrl());
+		existMovie.setName(movie.getName());
+		dataStoreManager.save(existMovie);		
+		return mv;
+	}
+	
+	@RequestMapping("/admin/edit-movie")
+	public ModelAndView edit(HttpSession httpSession, @RequestParam Long id){
+		ModelAndView mv=new ModelAndView("admin/edit-movie");
+		Movie existMovie = repository.findMovieById(id);	
+				
+		return mv.addObject("movie", existMovie);
+	}
 	
 	@RequestMapping("/")
 	public ModelAndView showSerach(){

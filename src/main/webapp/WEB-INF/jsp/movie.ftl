@@ -137,12 +137,14 @@ ddaccordion.init({
     		<div class="right_content" style="width: 800px; margin-left: 100px;">            
     			<div style="width: 700px">
     				<div style="width: 500px; display: inline-block;">
-    					<strong>Search Movie :</strong><input type="text" name="searchKey" id="searchBox" style="width: 380px; height: 20px; font-weight: bold; margin-left: 20px;"/>
-    				</div>
-    				<div style="width: 180px; display: inline-block;">
-    					<input type="button" value="Search" id="searchButton"/>
-    					<input type="button" value="Analyse And Search" id="analyseButton"/>
-    				</div>
+    					<strong>${movie.name}</strong>
+    				</div> 
+    				<br/>
+    				<br/>
+    				<br/>
+    				<div>
+    					<img src="${movie.imageUrl?if_exists}" alt="" />
+    				</div>  				
     			</div>    		
      		</div><!-- end of right content-->
      		   
@@ -150,29 +152,10 @@ ddaccordion.init({
     	<div class="clear"></div>
     	<div style="width: 900px;" id="serachResultSection">
     		<div style="margin-top: 50px; margin-left: 20px; font-weight: bold;">
-    		Search result :
-    		</div>
-    		<div style="width: 900px; min-height:300px;" id="resultContent">
-    			<div style="width: 500px; min-height:20px; margin: 0 auto; margin-top: 20px;">
-    			<b>Latest Added Movies :</b>
-    			</div>
-    			<#list latests as latest> 			
-    			<div style="width: 500px; border: 1px solid; min-height:100px; margin: 0 auto; margin-top: 20px;">
-    				<div style="height: 35px; width: 500px; background: #0092FA !important;">
-    					<img src="${latest.imageUrl?if_exists}" style="width:20px; height: 20px; float: left; margin-left: 10px; margin-top: 10px;" />
-    					<div style="display: inline-block; margin-left: 15px; margin-top: 10px; font-weight: bold;">
-    						<a href="">${latest.name?if_exists}</a>
-    					</div>
-    				</div>
-    				<div style="width: 500px; margin-top: 20px;">
-    					${latest.discription?if_exists}
-    				</div>
-    			</div>
-    			</#list>
-    		</div>
+    		${movie.discription?if_exists}
+    		</div>    		
     	</div>
-    </div> <!--end of main content-->
-    
+    </div> <!--end of main content-->    
 </div>		
 
 <script type="text/javascript">

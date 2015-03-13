@@ -56,76 +56,44 @@ ddaccordion.init({
     <div id="clock_a"></div>
     </div>
     
-    <div class="main_content">
-    
-                    <div class="menu">
-                    <ul>
-                    <li><a class="current" href="#">Admin Home</a></li>
-                    <li><a href="/blocked-users">Blocked Users<!--[if IE 7]><!--></a><!--<![endif]--></li>
-                    <li><a class="" href="/admin/activate-monitor">Demon Monitor</a></li>                   
-                    </ul>
-                    </div> 
-                    
-                    
-                    
-                    
+    <div class="main_content">                    
     <div class="center_content">  
     <div class="right_content">            
     
     <div >    
-    <h2 style="display: inline-block; float: left;">Add New Server</h2> <a style="display: inline-block; float: right;" href="admin/add-new-server"></a> 
+    	<h2 style="display: inline-block; float: left; text-decoration: none;"><a href="/admin/">Movies</a></h2>
+    	<h2 style="display: inline-block; margin-left: 20px;"><a href="/admin/graphs">Graph Analysis</a></h2>
+    	<h2 style="display: inline-block; margin-left: 20px;"><a href="/admin/upload-movies">Bulk Upload Movies</a></h2> 
+    	<a style="display: inline-block; float: right;" href="/admin/add-new-movie"><strong>+ Add new movie</strong></a> 
     </div>                
     
     
-    <form action="/admin/update-server">
+    <form action="/admin/update-movie">
     <table id="rounded-corner" summary="Blocked Users">
     
     <tbody>        
         <tr>   	 
         	<td>Name</td>
-            <td><input type="text" name="name" value="${server.name}"/></td>
+            <td><input type="text" name="name" value="${movie.name?if_exists}"/></td>
             
         </tr>
         <tr>   	 
-        	<td>IP Address</td>
-            <td><input type="text" name="ip" value="${server.ip}"/></td>
+        	<td>Description</td>
+            <td><input type="text" name="discription" value="${movie.discription?if_exists}"/></td>
             
         </tr>
+        
         <tr>   	 
-        	<td>Port Number</td>
-            <td><input type="text" name="portNumber" value="${server.portNumber}"/></td>
+        	<td>Image Url</td>
+            <td><input type="text" name=imageUrl value="${movie.imageUrl?if_exists}"/></td>
             
-        </tr>
-        <tr>   	 
-        	<td>Request Capacity</td>
-            <td><input type="text" name="requestCapacity" value="${server.requestCapacity}"/></td>
-            
-        </tr>
-        <tr>   	 
-        	<td>Request Capacity Threshold</td>
-            <td><input type="text" name="capacityThreshold" value="${server.capacityThreshold}"/></td>
-            
-        </tr>
-        <tr>   	 
-        	<td>Status</td>
-            <td><select name="status">
-          		<option value="ACTIVE">Active</option>
-          		<option value="INACTIVE">Inactive</option>
-          		<option value="SUSPENDED">Suspended</option>
-          	</select></td>
-            
-        </tr>
-        <tr>   	 
-        	<td>Request Migration</td>
-            <td><select name="migrationActive">
-          		<option value="true">Active</option>
-          		<option value="false">Inactive</option>          		
-          	</select></td>
-            
-        </tr>  
+        </tr> 
+        
+          
         <tr>   	
-        	<td><input type="hidden" name="id" value="${server.id}"/>
-        	<input type="submit" value="update"/></td>           
+        	 
+        	<td><input type="hidden" name = "id" value="${movie.id}"/>
+        	<input type="submit" value="Save"/></td>           
         </tr>         
          
     </tbody>

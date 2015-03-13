@@ -37,7 +37,7 @@ public class Repository {
 	}
 	
 	public List<Movie> listMoviesBySearchString(String searchString){
-		return getSession().createQuery("FROM "+Movie.class.getName()+" mv where lower(mv.name) LIKE lower(:searchString) OR lower(mv.discription) LIKE lower(:searchString)")
+		return getSession().createQuery("FROM "+Movie.class.getName()+" mv where lower(mv.name) LIKE lower(:searchString) OR lower(mv.discription) LIKE lower(:searchString) order by hitScore desc")
 				.setParameter("searchString", "%"+searchString+"%")
 				.list();
 	}
